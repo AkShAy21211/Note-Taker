@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/script.js"></script>
+    <title>Your Page Title</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="page-content container note-has-grid">
+            <ul class="nav nav-pills p-3 bg-white mb-3 rounded-pill align-items-center gap-2">
+                <li class="nav-item">
+                    <a href="/"
+                        class="nav-link rounded-pill note-link d-flex align-items-center px-2 px-md-3 mr-0 mr-md-2 "
+                        id="all-category">
+                        <i class="icon-layers mr-1"></i><span class="">All Category</span>
+                    </a>
+                </li>
+                <%for(let item of notes){%>
+                    <li class="nav-item">
+                        <a href="/filter/<%=item.category%>"
+                            class="nav-link rounded-pill note-link d-flex align-items-center px-2 px-md-3 mr-0 mr-md-2 "
+                            id="all-category">
+                            <i class="icon-layers mr-1"></i><span class=""><%=item.category  %></span>
+                        </a>
+                    </li>
+                    
+                <%}%>               
+    
+                <li class="nav-item ms-auto">
+                    <a href="javascript:void(0)" class="nav-link btn-primary rounded-pill text-end d-flex align-items-center px-3 active" id="add-notes">
+                        <i class="icon-note m-1"></i><span class="font-14">Add Notes</span>
+                    </a>
+                </li>
+                
+            </ul>
+    
+            <div class="tab-content bg-transparent">
+                <div id="note-full-container" class="note-has-grid row">
+                    <div class="col-md-4 single-note-item all-category" style="">
+                        <!-- Your note item content here... -->
+                    </div>
+                    <!-- Add other note items as needed -->
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content bg-transparent">
+            <div id="note-full-container" class="note-has-grid row">
+                <%for(let item of notes){%>
+
+                <div class="col-md-4 col-sm-6 col-12 single-note-item all-category" style="">
+                      
+                    <div class="card card-body">
+                        <span class="side-stick"></span>
+                        <h5 class="note-title text-truncate w-75 mb-0" data-noteheading="<%=item.title  %>"><%=item.title  %><i class="badge <%= item.status === false ? 'bg-success' : 'bg-danger' %> rounded" style="margin-left: 10px;">
+                            <%= item.status === false ? 'Active' : 'Completed' %>
+                            <a href="/update/<%=item.note_id  %>"><input style="margin-left: 10px;" type="checkbox"></a>
+                        </i>
+                        </h5>
+                        <p class="note-date font-12 text-muted"><%=item.created_at.toISOString().split('T')[0]  %></p>
+                        <div class="note-content">
+                            <p class="note-inner-content text-muted" data-notecontent="Blandit tempus porttitor aasfs. Integer posuere erat a ante venenatis."><%=item.content  %></p>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <!-- <span class="mr-1"><i class="fa fa-star favourite-note"></i></span> -->
+                            <span class="mr-1"><a href="/delete/<%=item.note_id  %>"><i class="fa fa-trash remove-note text-danger"></i></a></span>
+                            <div class="ml-auto">
+                                <div class="category-selector btn-group">
+                                    <a class="nav-link dropdown-toggle category-dropdown label-group p-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
+                                        <div class="category">
+                                            <div class="category-business"></div>
+                                            <div class="category-social"></div>
+                                            <div class="category-important"></div>
+                                            <span class="more-options text-dark"><i class="icon-options-vertical"></i></span>
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right category-menu">
+                                        <a class="note-business badge-group-item badge-business dropdown-item position-relative category-business text-success" href="javascript:void(0);">
+                                            <i class="mdi mdi-checkbox-blank-circle-outline mr-1"></i>Business
+                                        </a>
+                                        <a class="note-social badge-group-item badge-social dropdown-item position-relative category-social text-info" href="javascript:void(0);">
+                                            <i class="mdi mdi-checkbox-blank-circle-outline mr-1"></i> Social
+                                        </a>
+                                        <a class="note-important badge-group-item badge-important dropdown-item position-relative category-important text-danger" href="javascript:void(0);">
+                                            <i class="mdi mdi-checkbox-blank-circle-outline mr-1"></i> Important
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <%}  %>
+                <!-- Add more col-md-4 elements for other items as needed -->
+    
+    
+            </div>
+        </div>
+    </div>
+    
+    
+    <!-- Modal Add notes -->
+    <div class="modal fade" id="addnotesmodal" tabindex="-1" role="dialog" aria-labelledby="addnotesmodalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <!-- Use modal-lg class for large modal on larger screens -->
+            <div class="modal-content border-0">
+                <div class="modal-header bg-info text-white">
+                    <h5 class="modal-title text-white">Add Notes</h5>
+                    <button class="btn btn-danger" data-dismiss="modal">Discard</button>
+
+                </div>
+                <div class="modal-body">
+                    <div class="notes-box">
+
+                        <div class="notes-content">
+                            
+                            <form action="/add" method="post" id="addnotesmodalTitle" onsubmit="return validateForm()">
+                                <div class="row">
+                                    <div class="col-md-12 mb-3">
+                                        <div class="note-title">
+                                            <label>Note Title</label>
+                                            <input type="text" id="note-has-title" name="title" class="form-control" placeholder="Title" />
+                                            <small class="text-danger" id="title-warning"></small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="note-category">
+                                            <label>Note Category</label>
+                                            <input id="note-has-category" name="category" class="form-control" placeholder="Category" />
+                                            <small class="text-danger" id="category-warning"></small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="note-description">
+                                            <label>Note Description</label>
+                                            <textarea id="note-has-description" name="text" class="form-control" placeholder="Description" rows="3"></textarea>
+                                            <small class="text-danger" id="description-warning"></small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button id="btn-n-add" class="btn btn-info">Add</button>
+                                </div>
+                            </form>
+                            
+                        </div>
+
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Add this script in your HTML file -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Open the modal when the list item is clicked
+            $('#add-notes').on('click', function () {
+                $('#addnotesmodal').modal('show');
+            });
+
+            // Close the modal when the "Discard" button is clicked
+            $('.btn-danger').on('click', function () {
+                $('#addnotesmodal').modal('hide');
+            });
+        });
+    </script>
+</body>
+
+</html>
