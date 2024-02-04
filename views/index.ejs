@@ -23,7 +23,7 @@
                         <i class="icon-layers mr-1"></i><span class="">All Category</span>
                     </a>
                 </li>
-                <% if(typeof notes !== "undefined"){%>
+                <% if(typeof notes !== "undefined" && notes.length>0){%>
                 <%for(let item of notes){%>
                     <li class="nav-item">
                         <a href="/filter/<%=item.category%>"
@@ -55,7 +55,7 @@
 
         <div class="tab-content bg-transparent">
             <div id="note-full-container" class="note-has-grid row">
-                <% if(typeof notes !== "undefined"){%>
+                <% if(typeof notes !== "undefined" && notes.length>0){%>
                 <%for(let item of notes){%>
 
                 <div class="col-md-4 col-sm-6 col-12 single-note-item all-category" style="">
