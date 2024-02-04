@@ -7,13 +7,12 @@ const app = express();
 const port = 3000;
 
 
-const db = new Client({
+const db = new pg.Client({
     connectionString: process.env.INTERNAL_DATABASE_URL,
     ssl: {
       rejectUnauthorized: false,
     },
   });
-  
 db.connect();
 
 app.use(bodyParser.urlencoded({ extended: true }));
