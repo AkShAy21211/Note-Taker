@@ -1,14 +1,13 @@
 const express = require("express");
 const  bodyParser = require("body-parser");
-const  pg = require("pg");
+const  {Pool} = require("pg");
 const dotenv = require("dotenv").config()
 
 const app = express();
 const port = process.env.PORT || 3000 ;
 
 
-const db = new pg.Client({
-  
+const db = new Pool({
     connectionString: process.env.INTERNAL_DATABASE_URL,
     ssl: {
       rejectUnauthorized: false,
