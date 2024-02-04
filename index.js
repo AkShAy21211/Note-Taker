@@ -4,10 +4,11 @@ const  pg = require("pg");
 const dotenv = require("dotenv").config()
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000 ;
 
 
 const db = new pg.Client({
+  
     connectionString: process.env.INTERNAL_DATABASE_URL,
     ssl: {
       rejectUnauthorized: false,
