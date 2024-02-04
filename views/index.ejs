@@ -23,6 +23,7 @@
                         <i class="icon-layers mr-1"></i><span class="">All Category</span>
                     </a>
                 </li>
+                <% if(typeof notes !== "undefined"){%>
                 <%for(let item of notes){%>
                     <li class="nav-item">
                         <a href="/filter/<%=item.category%>"
@@ -33,7 +34,7 @@
                     </li>
                     
                 <%}%>               
-    
+             <% } %>
                 <li class="nav-item ms-auto">
                     <a href="javascript:void(0)" class="nav-link btn-primary rounded-pill text-end d-flex align-items-center px-3 active" id="add-notes">
                         <i class="icon-note m-1"></i><span class="font-14">Add Notes</span>
@@ -54,6 +55,7 @@
 
         <div class="tab-content bg-transparent">
             <div id="note-full-container" class="note-has-grid row">
+                <% if(typeof notes !== "undefined"){%>
                 <%for(let item of notes){%>
 
                 <div class="col-md-4 col-sm-6 col-12 single-note-item all-category" style="">
@@ -99,6 +101,8 @@
                     </div>
                 </div>
                 <%}  %>
+                <%} %>
+
                 <!-- Add more col-md-4 elements for other items as needed -->
     
     
